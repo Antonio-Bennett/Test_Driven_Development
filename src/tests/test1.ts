@@ -1,6 +1,13 @@
 //Create a function that will take in a random string and mask the last 4 numbers using asterisk (*)
 
+// Example:
+// “F3f213h82r3” should be “F3f21*h**r*”
+
 export const mask = (input = '') => {
+    //If input is invalid type
+    if (typeof input != 'string')
+        return `Invalid Input Type. Expected: "string", Received: "${typeof input}"`;
+
     // If the length of the string is less than 4 we know it can't be masked
     if (input.length < 4) return input;
 
@@ -24,6 +31,35 @@ export const mask = (input = '') => {
 
 if (import.meta.vitest) {
     const { it, expect } = import.meta.vitest;
+    it('returns invalid input types', () => {
+        //Numbers
+        expect(mask(1)).toBe(
+            'Invalid Input Type. Expected: "string", Received: "number"',
+        );
+        expect(mask(1.65)).toBe(
+            'Invalid Input Type. Expected: "string", Received: "number"',
+        );
+        expect(mask(NaN)).toBe(
+            'Invalid Input Type. Expected: "string", Received: "number"',
+        );
+        //Boolean
+        expect(mask(true)).toBe(
+            'Invalid Input Type. Expected: "string", Received: "boolean"',
+        );
+        //Undefined - This test returns '' because we give a default value of '' when input argument is undefined
+        expect(mask(undefined)).toBe('');
+        //Arrays/Objects <- Arrays are objects
+        expect(mask({ test: 'test' })).toBe(
+            'Invalid Input Type. Expected: "string", Received: "object"',
+        );
+        expect(mask([1, 2, 3])).toBe(
+            'Invalid Input Type. Expected: "string", Received: "object"',
+        );
+        expect(mask(() => {})).toBe(
+            'Invalid Input Type. Expected: "string", Received: "function"',
+        );
+    });
+
     it('returns known invalid string', () => {
         //Check empty strings and strings less than 4 chars in length
         expect(mask()).toBe('');
