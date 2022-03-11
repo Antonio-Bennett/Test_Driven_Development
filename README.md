@@ -15,4 +15,8 @@ In `src/main.ts` we use this to import all functions so we can dynamically use t
 
 To run `git clone` or download the repo and `cd` into `Test_Driven_Development/`
 
-Then run `pnpm install`
+Then run `pnpm install` followed by `pnpm run dev`
+
+# Testing
+
+To run tests through vitest run `pnpm run test`
